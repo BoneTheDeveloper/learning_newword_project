@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Vocabulary - VocabBuilder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>.gradient-primary{background:linear-gradient(135deg,#4F46E5 0%,#A855F7 100%)}</style>
+</head>
+<body class="font-body text-gray-900 bg-gray-50 min-h-screen">
+
+  <!-- NAV -->
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="/dashboard.html" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+          </div>
+          <span class="font-display font-bold text-lg">Back to Dashboard</span>
+        </a>
+        <div class="flex items-center gap-4">
+          <button class="p-2 text-gray-600 hover:text-gray-900">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          </button>
+          <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-sm">JD</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="font-display font-bold text-3xl sm:text-4xl text-gray-900 mb-4">Generate Vocabulary</h1>
+      <p class="text-lg text-gray-600">Enter a topic, paste text, or describe what you want to learn. AI will generate contextual vocabulary cards for you.</p>
+    </div>
+
+    <!-- Input Section -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8 mb-8">
+      <label class="block text-sm font-medium text-gray-700 mb-3">What do you want to learn today?</label>
+      <textarea class="w-full h-40 px-4 py-3 border-2 border-dashed border-gray-300 rounded-xl focus:border-indigo-500 focus:ring-0 resize-none text-gray-700" placeholder="Enter a topic (e.g., 'business English'), paste an article, or describe your learning goal..."></textarea>
+      <div class="flex items-center justify-between mt-4">
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-gray-600">Difficulty:</label>
+            <select class="px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+              <option>Intermediate</option>
+              <option>Beginner</option>
+              <option>Advanced</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-2">
+            <label class="text-sm text-gray-600">Words:</label>
+            <select class="px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500">
+              <option>10</option>
+              <option>15</option>
+              <option>20</option>
+            </select>
+          </div>
+        </div>
+        <button onclick="generate()" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          Generate
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading State (Hidden by default) -->
+    <div id="loading" class="hidden text-center py-16">
+      <div class="inline-block w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-6"></div>
+      <h3 class="font-display font-semibold text-xl text-gray-900 mb-2">AI is generating your vocabulary...</h3>
+      <p class="text-gray-600">This usually takes 10-15 seconds</p>
+    </div>
+
+    <!-- Generated Cards (Hidden by default) -->
+    <div id="results" class="hidden">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="font-display font-semibold text-2xl text-gray-900">Generated 12 Words</h2>
+          <p class="text-gray-600">Review and select the words you want to add to your collection</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button class="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium border border-gray-200 rounded-lg hover:bg-gray-50">Select All</button>
+          <button onclick="location.href='/select.html'" class="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700">Add 0 Selected</button>
+        </div>
+      </div>
+
+      <!-- Cards Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card 1 (Selected) -->
+        <div class="group p-5 bg-white rounded-xl border-2 border-indigo-500 cursor-pointer hover:shadow-lg transition-all">
+          <div class="flex items-start justify-between mb-3">
+            <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs font-medium rounded-full">New</span>
+            <div class="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+            </div>
+          </div>
+          <h3 class="font-display font-bold text-xl text-gray-900 mb-2">Ephemeral</h3>
+          <p class="text-gray-600 text-sm mb-3">/ɪˈfem(ə)rəl/ • adjective</p>
+          <p class="text-gray-700 text-sm mb-4">Lasting for a very short time; transitory</p>
+          <div class="bg-gray-50 rounded-lg p-3 text-sm">
+            <span class="text-gray-500 text-xs">Example: </span>
+            <span class="text-gray-700">"Fame in the modern world is often ephemeral..."</span>
+          </div>
+        </div>
+
+        <!-- Card 2 (Selected) -->
+        <div class="group p-5 bg-white rounded-xl border-2 border-indigo-500 cursor-pointer hover:shadow-lg transition-all">
+          <div class="flex items-start justify-between mb-3">
+            <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs font-medium rounded-full">New</span>
+            <div class="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center">
+              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+            </div>
+          </div>
+          <h3 class="font-display font-bold text-xl text-gray-900 mb-2">Ubiquitous</h3>
+          <p class="text-gray-600 text-sm mb-3">/juːˈbɪkwɪtəs/ • adjective</p>
+          <p class="text-gray-700 text-sm mb-4">Present, appearing, or found everywhere</p>
+          <div class="bg-gray-50 rounded-lg p-3 text-sm">
+            <span class="text-gray-500 text-xs">Example: </span>
+            <span class="text-gray-700">"Smartphones have become ubiquitous in daily life..."</span>
+          </div>
+        </div>
+
+        <!-- Card 3 (Not Selected) -->
+        <div class="group p-5 bg-white rounded-xl border border-gray-200 cursor-pointer hover:border-gray-300 hover:shadow-lg transition-all">
+          <div class="flex items-start justify-between mb-3">
+            <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">New</span>
+            <div class="w-6 h-6 rounded-full border-2 border-gray-300"></div>
+          </div>
+          <h3 class="font-display font-bold text-xl text-gray-900 mb-2">Paradigm</h3>
+          <p class="text-gray-600 text-sm mb-3">/ˈperəˌdīm/ • noun</p>
+          <p class="text-gray-700 text-sm mb-4">A typical example or pattern of something</p>
+          <div class="bg-gray-50 rounded-lg p-3 text-sm">
+            <span class="text-gray-500 text-xs">Example: </span>
+            <span class="text-gray-700">"This represents a new paradigm in computing..."</span>
+          </div>
+        </div>
+
+        <!-- Card 4-12 placeholders -->
+        <div class="group p-5 bg-white rounded-xl border border-gray-200 cursor-pointer hover:border-gray-300 hover:shadow-lg transition-all">
+          <div class="flex items-start justify-between mb-3">
+            <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">New</span>
+            <div class="w-6 h-6 rounded-full border-2 border-gray-300"></div>
+          </div>
+          <h3 class="font-display font-bold text-xl text-gray-900 mb-2">Serendipity</h3>
+          <p class="text-gray-600 text-sm mb-3">/ˌserənˈdipədē/ • noun</p>
+          <p class="text-gray-700 text-sm mb-4">The occurrence of events by chance in a happy way</p>
+        </div>
+
+        <div class="group p-5 bg-white rounded-xl border border-gray-200 cursor-pointer hover:border-gray-300 hover:shadow-lg transition-all">
+          <div class="flex items-start justify-between mb-3">
+            <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">New</span>
+            <div class="w-6 h-6 rounded-full border-2 border-gray-300"></div>
+          </div>
+          <h3 class="font-display font-bold text-xl text-gray-900 mb-2">Eloquent</h3>
+          <p class="text-gray-600 text-sm mb-3">/ˈeləkwənt/ • adjective</p>
+          <p class="text-gray-700 text-sm mb-4">Fluent or persuasive in speaking or writing</p>
+        </div>
+
+        <div class="group p-5 bg-white rounded-xl border border-gray-200 cursor-pointer hover:border-gray-300 hover:shadow-lg transition-all">
+          <div class="flex items-start justify-between mb-3">
+            <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">New</span>
+            <div class="w-6 h-6 rounded-full border-2 border-gray-300"></div>
+          </div>
+          <h3 class="font-display font-bold text-xl text-gray-900 mb-2">Pragmatic</h3>
+          <p class="text-gray-600 text-sm mb-3">/praɡˈmadik/ • adjective</p>
+          <p class="text-gray-700 text-sm mb-4">Dealing with things sensibly and realistically</p>
+        </div>
+      </div>
+
+      <!-- Action Bar (Sticky Bottom) -->
+      <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+          <span class="text-gray-700"><strong>2 words</strong> selected</span>
+          <div class="flex items-center gap-3">
+            <button class="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium">Cancel</button>
+            <button onclick="location.href='/select.html'" class="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700">Add to Collection</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function generate() {
+      document.getElementById('loading').classList.remove('hidden');
+      setTimeout(() => {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('results').classList.remove('hidden');
+      }, 2000);
+    }
+  </script>
+</body>
+</html>

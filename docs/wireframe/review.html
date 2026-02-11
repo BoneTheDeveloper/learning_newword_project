@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review - VocabBuilder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-primary{background:linear-gradient(135deg,#4F46E5 0%,#A855F7 100%)}
+    .card-gradient{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}
+    .flip-card{perspective:1000px}
+    .flip-card-inner{transition:transform 0.6s;transform-style:preserve-3d}
+    .flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
+    .flip-card-front,.flip-card-back{backface-visibility:hidden}
+    .flip-card-back{transform:rotateY(180deg)}
+  </style>
+</head>
+<body class="font-body text-gray-900 bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <button onclick="location.href='/dashboard.html'" class="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          <span class="font-medium">Exit Review</span>
+        </button>
+        <div class="flex items-center gap-6">
+          <div class="text-center">
+            <div class="text-2xl font-display font-bold text-indigo-600">3</div>
+            <div class="text-xs text-gray-500">Due</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-display font-bold text-emerald-600">9</div>
+            <div class="text-xs text-gray-500">Done</div>
+          </div>
+          <div class="flex items-center gap-1 text-orange-500">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"></path></svg>
+            <span class="font-bold">7</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Progress Bar -->
+  <div class="bg-white border-b border-gray-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div class="flex items-center justify-between text-sm mb-2">
+        <span class="text-gray-600">Progress</span>
+        <span class="font-semibold text-gray-900">9 of 12 cards</span>
+      </div>
+      <div class="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+        <div class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-500" style="width: 75%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-8">
+      <h1 class="font-display font-bold text-2xl text-gray-900 mb-2">Review Time!</h1>
+      <p class="text-gray-600">Tap the card to reveal the answer</p>
+    </div>
+
+    <!-- Flashcard -->
+    <div class="flip-card cursor-pointer mb-8" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner relative">
+        <!-- Front -->
+        <div class="flip-card-front card-gradient rounded-2xl p-12 shadow-xl min-h-[400px] flex flex-col items-center justify-center text-white">
+          <div class="mb-8">
+            <span class="px-4 py-2 bg-white/20 rounded-full text-sm font-medium">New Word</span>
+          </div>
+          <h2 class="font-display font-bold text-5xl mb-6 text-center">Ephemeral</h2>
+          <p class="text-white/70 text-lg">/ɪˈfem(ə)rəl/</p>
+          <div class="absolute bottom-8 left-0 right-0 text-center text-white/60 text-sm">
+            <svg class="w-6 h-6 mx-auto mb-2 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+            Tap to reveal
+          </div>
+        </div>
+
+        <!-- Back -->
+        <div class="flip-card-back bg-white rounded-2xl p-12 shadow-xl min-h-[400px] border-2 border-indigo-200 flex flex-col">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <h2 class="font-display font-bold text-3xl text-gray-900 mb-2">Ephemeral</h2>
+              <p class="text-gray-500">adjective • /ɪˈfem(ə)rəl/</p>
+            </div>
+            <button class="p-2 text-gray-400 hover:text-gray-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+            </button>
+          </div>
+
+          <div class="mb-6">
+            <div class="text-sm font-medium text-gray-700 mb-2">Definition</div>
+            <p class="text-lg text-gray-800">Lasting for a very short time; transitory</p>
+          </div>
+
+          <div class="bg-indigo-50 rounded-xl p-5 mb-6">
+            <div class="text-sm font-medium text-indigo-900 mb-2">Example</div>
+            <p class="text-indigo-800">"Fame in the modern world is often <span class="font-semibold">ephemeral</span>, disappearing as quickly as it arrives."</p>
+          </div>
+
+          <div class="mt-auto">
+            <div class="text-sm text-gray-500 mb-2">Memory Hook</div>
+            <p class="text-gray-700 text-sm">Think of "ephemeral" like "emerald" - precious but fleeting.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SRS Response Buttons -->
+    <div class="grid grid-cols-4 gap-4 mb-8">
+      <button class="group py-4 px-6 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-xl hover:from-red-600 hover:to-red-700 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+        <div class="text-xs text-red-200 mb-1">Again</div>
+        <div class="text-lg">&lt; 1 min</div>
+      </button>
+      <button class="group py-4 px-6 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold rounded-xl hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+        <div class="text-xs text-orange-200 mb-1">Hard</div>
+        <div class="text-lg">6 min</div>
+      </button>
+      <button class="group py-4 px-6 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-bold rounded-xl hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+        <div class="text-xs text-emerald-200 mb-1">Good</div>
+        <div class="text-lg">10 min</div>
+      </button>
+      <button class="group py-4 px-6 bg-gradient-to-r from-teal-500 to-teal-600 text-white font-bold rounded-xl hover:from-teal-600 hover:to-teal-700 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+        <div class="text-xs text-teal-200 mb-1">Easy</div>
+        <div class="text-lg">4 days</div>
+      </button>
+    </div>
+
+    <!-- Session Info -->
+    <div class="bg-white rounded-xl p-6 border border-gray-200">
+      <div class="grid grid-cols-3 gap-6 text-center">
+        <div>
+          <div class="text-2xl font-display font-bold text-indigo-600">8:24</div>
+          <div class="text-sm text-gray-600">Time Elapsed</div>
+        </div>
+        <div>
+          <div class="text-2xl font-display font-bold text-emerald-600">89%</div>
+          <div class="text-sm text-gray-600">Accuracy</div>
+        </div>
+        <div>
+          <div class="text-2xl font-display font-bold text-purple-600">~2 min</div>
+          <div class="text-sm text-gray-600">Est. Remaining</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Keyboard Shortcuts Hint -->
+    <div class="mt-6 text-center text-sm text-gray-500">
+      <span class="font-medium">Keyboard shortcuts:</span> 1 = Again, 2 = Hard, 3 = Good, 4 = Easy, Space = Flip card
+    </div>
+  </main>
+</body>
+</html>
